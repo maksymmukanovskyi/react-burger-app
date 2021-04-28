@@ -1,41 +1,49 @@
-import React from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import classes from './BurgerIngredient.module.css';
 
-const burgerIngredient = props => {
-  let ingredient = null;
+class BurgerIngredient extends Component {
+  render() {
+    let ingredient = null;
 
-  switch (props.type) {
-    case 'bread-buttom':
-      ingredient = <div className={classes.BreadBottom} />;
-      break;
-    case 'bread-top':
-      ingredient = (
-        <div className={classes.BreadTop}>
-          <div className={classes.Seeds1} />
-          <div className={classes.Seeds2} />
-        </div>
-      );
-      break;
-    case 'meat':
-      ingredient = <div className={classes.Meat} />;
-      break;
+    // eslint-disable-next-line react/destructuring-assignment
+    switch (this.props.type) {
+      case 'bread-buttom':
+        ingredient = <div className={classes.BreadBottom} />;
+        break;
+      case 'bread-top':
+        ingredient = (
+          <div className={classes.BreadTop}>
+            <div className={classes.Seeds1} />
+            <div className={classes.Seeds2} />
+          </div>
+        );
+        break;
+      case 'meat':
+        ingredient = <div className={classes.Meat} />;
+        break;
 
-    case 'chees':
-      ingredient = <div className={classes.Chees} />;
-      break;
+      case 'cheese':
+        ingredient = <div className={classes.Cheese} />;
+        break;
 
-    case 'salad':
-      ingredient = <div className={classes.Salad} />;
-      break;
+      case 'salad':
+        ingredient = <div className={classes.Salad} />;
+        break;
 
-    case 'bacon':
-      ingredient = <div className={classes.Bacon} />;
-      break;
+      case 'bacon':
+        ingredient = <div className={classes.Bacon} />;
+        break;
 
-    default:
-      ingredient = null;
+      default:
+        ingredient = null;
+    }
+    return ingredient;
   }
-  return ingredient;
+}
+
+BurgerIngredient.propTypes = {
+  type: PropTypes.string.isRequired,
 };
 
-export default burgerIngredient;
+export default BurgerIngredient;
