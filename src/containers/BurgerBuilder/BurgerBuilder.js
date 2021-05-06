@@ -1,3 +1,4 @@
+/* eslint-disable guard-for-in */
 import React, { Component } from 'react';
 import Aux from '../../hoc/Auxiliary';
 import Burder from '../../components/Burger/Burger';
@@ -37,14 +38,41 @@ class BurgerBuilder extends Component {
     this.setState({ totalPrice: newPrice, ingredients: updatedIngredients });
   };
 
-  // removeIngredientHandler = type => {};
+  removeIngredientHandler = type => {
+    const { ingredients, totalPrice } = this.state;
+    const oldCount = ingredients[type];
+    if (oldCount <= 0) return;
+    const updatedCount = oldCount - 1;
+    const updatedIngredients = {
+      ...ingredients,
+    };
+    updatedIngredients[type] = updatedCount;
+
+    const priceDedaction = INGREDIENT_PRICES[type];
+    const oldPrice = totalPrice;
+    const newPrice = oldPrice - priceDedaction;
+
+    this.setState({ totalPrice: newPrice, ingredients: updatedIngredients });
+  };
 
   render() {
     const { ingredients } = this.state;
+    const disabledInfo = {
+      ...ingredients,
+    };
+
+    // eslint-disable-next-line no-restricted-syntax
+    for (const key in disabledInfo) {
+      disabledInfo[key] = disabledInfo[key] <= 0;
+    }
     return (
       <Aux>
         <Burder ingredients={ingredients} />
-        <BuildControls onAddIngradient={this.addIngredientHandler} />
+        <BuildControls
+          onAddIngradient={this.addIngredientHandler}
+          onDeleteIngradient={this.removeIngredientHandler}
+          disabled={disabledInfo}
+        />
       </Aux>
     );
   }

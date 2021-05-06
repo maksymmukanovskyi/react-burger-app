@@ -9,7 +9,7 @@ const controls = [
   { label: 'Meat', type: 'meat' },
 ];
 
-// onAddIngradiant
+// onAddIngradiant onDeleteIngradient
 
 // eslint-disable-next-line no-unused-vars
 const buildControls = props => {
@@ -18,6 +18,8 @@ const buildControls = props => {
       {controls.map(ctrl => (
         <BuildControl
           added={() => props.onAddIngradient(ctrl.type)}
+          removed={() => props.onDeleteIngradient(ctrl.type)}
+          disabled={props.disabled[ctrl.type]}
           key={ctrl.label}
           label={ctrl.label}
         />
