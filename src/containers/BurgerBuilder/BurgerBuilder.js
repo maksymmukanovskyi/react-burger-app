@@ -20,6 +20,7 @@ class BurgerBuilder extends Component {
       meat: 0,
     },
     totalPrice: 4,
+    purchasable: false,
   };
 
   addIngredientHandler = type => {
@@ -36,6 +37,7 @@ class BurgerBuilder extends Component {
     const newPrice = oldPrice + priceAddition;
 
     this.setState({ totalPrice: newPrice, ingredients: updatedIngredients });
+    this.updatePurchaseState(updatedIngredients);
   };
 
   removeIngredientHandler = type => {
@@ -53,10 +55,24 @@ class BurgerBuilder extends Component {
     const newPrice = oldPrice - priceDedaction;
 
     this.setState({ totalPrice: newPrice, ingredients: updatedIngredients });
+    this.updatePurchaseState(updatedIngredients);
   };
 
+  updatePurchaseState(ingredientsLocal) {
+    const total = Object.keys(ingredientsLocal)
+      .map(igKey => {
+        return ingredientsLocal[igKey];
+      })
+      .reduce((sum, el) => {
+        return sum + el;
+      }, 0);
+
+    // eslint-disable-next-line react/no-unused-state
+    this.setState({ purchasable: total > 0 });
+  }
+
   render() {
-    const { ingredients } = this.state;
+    const { ingredients, totalPrice, purchasable } = this.state;
     const disabledInfo = {
       ...ingredients,
     };
@@ -72,6 +88,8 @@ class BurgerBuilder extends Component {
           onAddIngradient={this.addIngredientHandler}
           onDeleteIngradient={this.removeIngredientHandler}
           disabled={disabledInfo}
+          purchasable={purchasable}
+          price={totalPrice}
         />
       </Aux>
     );
