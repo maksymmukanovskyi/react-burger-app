@@ -2,15 +2,23 @@ import React from 'react';
 import Logo from '../../Logo/Logo';
 import NavItems from '../NavItems/NavItems';
 import classes from './SideDrawer.module.css';
+import Backdrop from '../../UI/Backdrop/Backdrop';
+import Aux from '../../../hoc/Auxiliary';
 
 const SideDrawer = () => {
   return (
-    <div className={classes.SideDrawer}>
-      <Logo height="11%" />
-      <nav>
-        <NavItems />
-      </nav>
-    </div>
+    <Aux>
+      <Backdrop show />
+      <div className={classes.SideDrawer}>
+        <div className={classes.Logo}>
+          <Logo />
+        </div>
+
+        <nav>
+          <NavItems />
+        </nav>
+      </div>
+    </Aux>
   );
 };
 
