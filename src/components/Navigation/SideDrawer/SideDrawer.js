@@ -5,11 +5,19 @@ import classes from './SideDrawer.module.css';
 import Backdrop from '../../UI/Backdrop/Backdrop';
 import Aux from '../../../hoc/Auxiliary';
 
-const SideDrawer = () => {
+const SideDrawer = props => {
+  const { openned, closed } = props;
+
+  let attachedClasses = [classes.SideDrawer, classes.Close];
+
+  if (openned) {
+    attachedClasses = [classes.SideDrawer, classes.Open];
+  }
+
   return (
     <Aux>
-      <Backdrop show />
-      <div className={classes.SideDrawer}>
+      <Backdrop show={openned} clicked={closed} />
+      <div className={attachedClasses.join(' ')}>
         <div className={classes.Logo}>
           <Logo />
         </div>
