@@ -7,8 +7,8 @@ class Modal extends Component {
   state = {};
 
   shouldComponentUpdate(nextProps) {
-    const { show } = this.props;
-    return nextProps.show !== show;
+    const { show, children } = this.props;
+    return nextProps.show !== show || nextProps.children !== children;
   }
 
   // eslint-disable-next-line react/no-deprecated
